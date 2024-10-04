@@ -2,17 +2,21 @@ import fs from "fs";
 import path from "path";
 import modes from "./modes.json";
 import { isEnabled } from "../check";
-import { createLog } from "..";
+import { createLog } from "../logger";
 
 class Key {
   constructor(private k: any) {}
 
   str() {
-    return new String(this.k);
+    return this.k;
   }
 
   int() {
     return new Number(this.k);
+  }
+
+  unknown() {
+    return this.k === "unknown";
   }
 }
 
@@ -44,8 +48,10 @@ export function debugMode() {
 export function readKey(key: string) {
   const item = readFile().filter((v) => v.includes(key))[0];
   if (typeof item === "undefined") {
-    return "unknown";
+    return new Key("unknown");
   } else {
-    const [_, value] = item.split("::");
+    let [_, value] = item.split("::");
+    value = value.replace("}", "");
+    return new Key(value);
   }
 }
