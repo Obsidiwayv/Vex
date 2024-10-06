@@ -6,7 +6,7 @@ const app = Fastify({ logger: true });
 const port = readKey("PORT");
 const host = readKey("HOST");
 
-app.get("/webhooks/post", (req, res) => {
+app.post("/webhooks/post", (req, res) => {
   if (!GithubListener.validate(req)) {
     return;
   }
