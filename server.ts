@@ -4,7 +4,6 @@ import GithubListener from "./listeners/GithubListener";
 
 const app = Fastify({ logger: true });
 const port = readKey("PORT");
-const host = readKey("HOST");
 
 app.get("/webhooks/post", (req, res) => {
   if (!GithubListener.validate(req)) {
@@ -15,4 +14,4 @@ app.get("/webhooks/post", (req, res) => {
   GithubListener.handle(req, res);
 });
 
-app.listen({ port: port.int(), host: host.str() });
+app.listen({ port: port.int() });
