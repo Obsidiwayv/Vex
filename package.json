@@ -9,6 +9,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "eris": "^0.18.0"
+    "eris": "^0.18.0",
+    "fastify": "^5.0.0"
   }
 }

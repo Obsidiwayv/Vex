@@ -12,7 +12,7 @@ class Key {
   }
 
   int() {
-    return new Number(this.k);
+    return parseInt(this.k);
   }
 
   unknown() {
