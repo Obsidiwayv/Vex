@@ -30,6 +30,8 @@ async function start() {
 
 function listenToEvents(client: Eris.Client) {
   client.on("voiceChannelJoin", (m, c) => voiceJoin(m, c, client));
+  client.on("error", (e) => debug(e.message));
+  client.on("warn", (msg) => debug(msg));
 }
 
 start();

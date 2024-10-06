@@ -11,7 +11,7 @@ export async function voiceJoin(
   const pings = 3;
   const role = readKey("ROLE");
   const channel_id = readKey("CHNL");
-  const msg = "@everyon`e";
+  const msg = "@everyone";
 
   if (member.roles.includes(role.str()) && channel.voiceMembers.size === 1) {
     for (let i = 0; i < pings; i++) {
