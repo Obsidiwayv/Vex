@@ -8,12 +8,11 @@ const host = readKey("HOST");
 
 app.post("/webhooks/post", (req, res) => {
   if (!GithubListener.validate(req)) {
-    return;
+    return res.status(400).send("Invalid request");
   }
   // Make sure github gets the code
   res.status(202).send("Accepted");
   GithubListener.handle(req, res);
-  return "done";
 });
 
 app.listen({ port: port.int(), host: host.str() });
