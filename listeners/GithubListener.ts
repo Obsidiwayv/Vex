@@ -2,10 +2,17 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { client } from "..";
 import { readKey } from "../config/config.reader";
 import type Eris from "eris";
+import { $ } from "bun";
+import { debug, log } from "../logger";
+import axios from "axios";
 
 export default class {
   static handle(req: FastifyRequest, res: FastifyReply) {
-    console.log(req.body);
+    const response: any = req.body;
+    this.createMessage(
+      `Pulling latest from ${response.before} to ${response.after}`,
+    );
+    this.update();
   }
 
   // Validating a github webhook
@@ -21,5 +28,26 @@ export default class {
 
   private static createMessage(text: Eris.MessageContent) {
     client.createMessage(readKey("UPD_CHNL").str(), text);
+  }
+
+  private static async update() {
+    $`git pull`;
+    const api_key = readKey("H_KEY");
+    const server_id = readKey("S_ID");
+    const host_url = readKey("H_URL");
+    await axios({
+      headers: {
+        Authorization: `Bearer ${api_key}`,
+        "Content-Type": "application/json",
+        Accept: "Application/vnd.pterodactyl.v1+json",
+      },
+      method: "POST",
+      url: `${host_url}/api/client/servers/${server_id}/power`,
+      params: {
+        signal: "restart",
+      },
+    })
+      .then(() => log("Restarting now!"))
+      .catch((e) => debug(e));
   }
 }
