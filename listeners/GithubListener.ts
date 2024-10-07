@@ -11,7 +11,7 @@ export default class {
     const response: any = req.body;
     if (response.ref) {
       this.createMessage(
-        `Pulling latest from ${response.before} to ${response.after}`,
+        `Pulling latest from \`${response.before.substring(0, 7)}\` to \`${response.after.substring(0, 7)}\``,
       );
       this.update();
     }
