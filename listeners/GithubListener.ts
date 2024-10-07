@@ -5,9 +5,7 @@ import type Eris from "eris";
 
 export default class {
   static handle(req: FastifyRequest, res: FastifyReply) {
-    const commit_body = JSON.parse(req.body as string);
-    const commit_hash = commit_body.head_commit.id;
-    console.log(commit_body, commit_hash);
+    console.log(req.body);
   }
 
   // Validating a github webhook
