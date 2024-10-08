@@ -15,7 +15,7 @@ export async function voiceJoin(
   const ping_role_ad = readKey("AD_ROLE");
   const channel_id_ad = readKey("AD_CHNL");
 
-  const is_admin = channel.id === channel_id_ad.str();
+  const is_admin = readKey("VC_AD").str() === channel.id;
 
   pingRole(
     role.str(),
