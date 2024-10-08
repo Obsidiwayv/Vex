@@ -15,7 +15,10 @@ export async function voiceJoin(
 
   if (member.roles.includes(role.str()) && channel.voiceMembers.size === 1) {
     for (let i = 0; i < pings; i++) {
-      client.createMessage(channel_id.str(), msg);
+      client.createMessage(
+        channel_id.str(),
+        `@everyone, \`${member.username}\` in <#${channel.id}>`,
+      );
       await sleep(5000);
     }
   }
