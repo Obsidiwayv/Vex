@@ -10,14 +10,15 @@ export async function voiceJoin(
 ) {
   const pings = 3;
   const role = readKey("ROLE");
+  const ping_role = readKey("PING");
   const channel_id = readKey("CHNL");
-  const msg = "@everyone";
+  const msg = `<@&${ping_role.str()}>`;
 
   if (member.roles.includes(role.str()) && channel.voiceMembers.size === 1) {
     for (let i = 0; i < pings; i++) {
       client.createMessage(
         channel_id.str(),
-        `@everyone, \`${member.username}\` in <#${channel.id}>`,
+        `${msg}, \`${member.username}\` is in <#${channel.id}>`,
       );
       await sleep(5000);
     }
