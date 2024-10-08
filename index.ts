@@ -4,6 +4,7 @@ import { crashReport, debug, log } from "./logger";
 import { voiceJoin } from "./listeners/VoiceEvents";
 
 import "./server";
+import MemberJoin from "./listeners/MemberJoin";
 
 const token = readKey("TKN");
 if (token.unknown()) {
@@ -33,6 +34,7 @@ async function start() {
 
 function listenToEvents(client: Eris.Client) {
   client.on("voiceChannelJoin", (m, c) => voiceJoin(m, c, client));
+  client.on("guildMemberAdd", MemberJoin);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
 }
