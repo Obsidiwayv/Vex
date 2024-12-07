@@ -3,6 +3,9 @@ import { debugMode, readKey } from "./config/config.reader";
 import { crashReport, debug, log } from "./logger";
 import { voiceJoin } from "./listeners/VoiceEvents";
 import { isEnabled } from "./check";
+if (isEnabled(readKey("ENABLE_SERVER").str())) {
+  require("./server");
+}
 import MessageCreateListener from "./listeners/MessageCreateListener";
 import { checkAliases, RegisterCommand } from "./CommandRegistry";
 import { GeminiCommand } from "./commands/Gemini";

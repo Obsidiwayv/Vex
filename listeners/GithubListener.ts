@@ -4,9 +4,17 @@ import { readKey } from "../config/config.reader";
 import type Eris from "eris";
 import { debug, log } from "../logger";
 import axios from "axios";
-import { execSync } from "child_process";
 import ts from "typescript";
 import Emoji from "../config/Emoji";
+
+function runGitCommand() {
+  if (typeof Bun !== "undefined") {
+    Bun.$`git pull`;
+  } else {
+    const { execSync }  = require("child_process");
+    execSync("git pull");
+  }
+}
 
 export default class {
   static handle(req: FastifyRequest, res: FastifyReply) {
@@ -35,7 +43,7 @@ export default class {
   }
 
   private static async update() {
-    execSync("git pull");
+    runGitCommand();
     const api_key = readKey("PANEL_KEY");
     const server_id = readKey("SERVER_ID");
     const host_url = readKey("HOST_URL");
