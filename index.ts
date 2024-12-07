@@ -5,7 +5,7 @@ import { voiceJoin } from "./listeners/VoiceEvents";
 import { runServer } from "./server";
 import { isEnabled } from "./check";
 
-if (isEnabled(readKey("SERVER_ENABLED").str())) {
+if (isEnabled(readKey("ENABLE_SERVER").str())) {
   runServer();
 }
 import MessageCreateListener from "./listeners/MessageCreateListener";
