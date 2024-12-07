@@ -3,7 +3,7 @@ import { debug } from "../logger";
 import { readKey } from "../config/config.reader";
 
 export default function (guild: Eris.Guild, member: Eris.Member) {
-  const role_id = readKey("ROLE_JOIN");
+  const role_id = readKey("MEMBER_JOIN_ROLE");
   try {
     if (!member.bot) {
       member.addRole(role_id.str());

@@ -2,16 +2,18 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { client } from "..";
 import { readKey } from "../config/config.reader";
 import type Eris from "eris";
-import { $ } from "bun";
 import { debug, log } from "../logger";
 import axios from "axios";
+import { execSync } from "child_process";
+import ts from "typescript";
+import Emoji from "../config/Emoji";
 
 export default class {
   static handle(req: FastifyRequest, res: FastifyReply) {
     const response: any = req.body;
     if (response.ref) {
       this.createMessage(
-        `Pulling latest from \`${response.before.substring(0, 7)}\` to \`${response.after.substring(0, 7)}\``,
+        `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
       );
       this.update();
     }
@@ -29,14 +31,14 @@ export default class {
   }
 
   private static createMessage(text: Eris.MessageContent) {
-    client.createMessage(readKey("UPD_CHNL").str(), text);
+    client.createMessage(readKey("GIT_UPDATE_CHANNEL").str(), text);
   }
 
   private static async update() {
-    $`git pull`;
-    const api_key = readKey("H_KEY");
-    const server_id = readKey("S_ID");
-    const host_url = readKey("H_URL");
+    execSync("git pull");
+    const api_key = readKey("PANEL_KEY");
+    const server_id = readKey("SERVER_ID");
+    const host_url = readKey("HOST_URL");
     await axios({
       headers: {
         Authorization: `Bearer ${api_key.str()}`,

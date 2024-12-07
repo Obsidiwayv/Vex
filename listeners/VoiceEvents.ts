@@ -8,19 +8,14 @@ export async function voiceJoin(
   channel: Eris.AnyVoiceChannel,
   client: Eris.Client,
 ) {
-  const pings = 3;
-  const role = readKey("ROLE");
-  const ping_role_reg = readKey("PING");
-  const channel_id_reg = readKey("CHNL");
-  const ping_role_ad = readKey("AD_ROLE");
-  const channel_id_ad = readKey("AD_CHNL");
-
-  const is_admin = readKey("VC_AD").str() === channel.id;
+  const role = readKey("VC_COMMANDER_ROLE");
+  const ping_role = readKey("PING_ROLE");
+  const channel_id = readKey("PING_CHANNEL");
 
   pingRole(
     role.str(),
-    is_admin ? channel_id_ad.str() : channel_id_reg.str(),
-    is_admin ? ping_role_ad.str() : ping_role_reg.str(),
+    channel_id.str(),
+    ping_role.str(),
     { channel, client, member },
   );
 }

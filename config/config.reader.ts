@@ -8,7 +8,7 @@ class Key {
   constructor(private k: any) {}
 
   str() {
-    return this.k;
+    return this.k as string;
   }
 
   int() {

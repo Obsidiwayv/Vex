@@ -3,8 +3,10 @@ import { debugMode, readKey } from "./config/config.reader";
 import { crashReport, debug, log } from "./logger";
 import { voiceJoin } from "./listeners/VoiceEvents";
 
-import "./server";
-import MemberJoin from "./listeners/MemberJoin";
+//import "./server";
+import MessageCreateListener from "./listeners/MessageCreateListener";
+import { checkAliases, RegisterCommand } from "./CommandRegistry";
+import { GeminiCommand } from "./commands/Gemini";
 
 const token = readKey("TKN");
 if (token.unknown()) {
@@ -18,6 +20,7 @@ export const client = new Client(token.str(), {
     "guildMembers",
     "messageContent",
     "guilds",
+    "guildMessages"
   ],
   allowedMentions: {
     everyone: true,
@@ -30,11 +33,16 @@ async function start() {
   await client.connect().catch(crashReport);
   debug("Starting event listeners");
   listenToEvents(client);
+  debug("Registering commands");
+  {
+    RegisterCommand("ai", new GeminiCommand(), checkAliases(["g"]));
+  }
 }
 
 function listenToEvents(client: Eris.Client) {
   client.on("voiceChannelJoin", (m, c) => voiceJoin(m, c, client));
-  client.on("guildMemberAdd", MemberJoin);
+  //client.on("guildMemberAdd", MemberJoin);
+  client.on("messageCreate", (m: any) => MessageCreateListener(m));
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
 }

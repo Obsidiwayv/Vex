@@ -1,16 +1,21 @@
 {
   "name": "vex",
-  "module": "index.ts",
-  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "dev": "ts-node index.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.7",
     "eris": "^0.18.0",
-    "fastify": "^5.0.0"
+    "fastify": "^5.0.0",
+    "skia-canvas": "^2.0.0"
   }
 }
