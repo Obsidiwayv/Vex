@@ -2,11 +2,9 @@ import Eris, { Client } from "eris";
 import { debugMode, readKey } from "./config/config.reader";
 import { crashReport, debug, log } from "./logger";
 import { voiceJoin } from "./listeners/VoiceEvents";
-import { runServer } from "./server";
 import { isEnabled } from "./check";
-
 if (isEnabled(readKey("ENABLE_SERVER").str())) {
-  runServer();
+  require("./server");
 }
 import MessageCreateListener from "./listeners/MessageCreateListener";
 import { checkAliases, RegisterCommand } from "./CommandRegistry";
