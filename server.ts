@@ -15,4 +15,6 @@ app.post("/webhooks/post", (req, res) => {
   res.status(202).send("Accepted");
 });
 
-app.listen({ port: port.int(), host: host.str() });
+export function runServer() {
+  app.listen({ port: port.int(), host: host.str() });
+};
