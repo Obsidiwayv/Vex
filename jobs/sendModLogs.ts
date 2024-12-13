@@ -3,10 +3,12 @@ import { client, messageDeletedMap } from ".."
 import { readKey } from "../config/config.reader";
 
 const log_channel = readKey("MOD_LOG_CHANNEL");
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 setInterval(() => {
     if (messageDeletedMap.length) {
       messageDeletedMap.forEach(({ messages, name }) => {
+        sleep(2000);
         const embed: EmbedOptions = {
             title: `Messages deleted by ${name}`,
             description: messages.join("\n"),
@@ -16,4 +18,4 @@ setInterval(() => {
         messageDeletedMap.shift();
       })
     }
-}, 5000);
+}, 4000);
