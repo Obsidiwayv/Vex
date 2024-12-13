@@ -13,6 +13,7 @@ setInterval(() => {
             color: 0xD03D33
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
+        messageDeletedMap.shift();
       })
     }
 }, 300000);
