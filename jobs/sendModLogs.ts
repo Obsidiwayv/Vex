@@ -22,6 +22,7 @@ setInterval(() => {
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
         messageDeletedMap.shift();
+        message_col = 0;
       })
     }
 }, 4000);
