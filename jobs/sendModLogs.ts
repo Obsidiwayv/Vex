@@ -7,11 +7,17 @@ const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 setInterval(() => {
     if (messageDeletedMap.length) {
+      let message_col = 0;
+
       messageDeletedMap.forEach(({ messages, name }) => {
         sleep(2000);
         const embed: EmbedOptions = {
             title: `Messages deleted by ${name}`,
-            description: messages.join("\n"),
+            description: messages.map((s) => {
+              const msg = `${message_col}. ${s}\n\n`;
+              message_col++
+              return msg;
+            }).join(""),
             color: 0xD03D33
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
