@@ -10,6 +10,15 @@ import MessageCreateListener from "./listeners/MessageCreateListener";
 import { checkAliases, RegisterCommand } from "./CommandRegistry";
 import { GeminiCommand } from "./commands/Gemini";
 
+import "./jobs/sendModLogs";
+import MessageDeleteListener from "./listeners/MessageDeleteListener";
+
+export const messageDeletedMap: Array<{
+  id: string;
+  name: string;
+  messages: string[];
+}> = [];
+
 const token = readKey("TKN");
 if (token.unknown()) {
   log("'TKN' is unknown and will throw an error");
@@ -44,6 +53,7 @@ async function start() {
 function listenToEvents(client: Eris.Client) {
   client.on("voiceChannelJoin", (m, c) => voiceJoin(m, c, client));
   //client.on("guildMemberAdd", MemberJoin);
+  client.on("messageDelete", (m: any) => MessageDeleteListener(m))
   client.on("messageCreate", (m: any) => MessageCreateListener(m));
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));

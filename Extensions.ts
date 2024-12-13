@@ -1,4 +1,5 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GenerateContentResult, GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleAICacheManager } from "@google/generative-ai/server";
 import { readKey } from "./config/config.reader";
 
 export class GeminiExtension {
