@@ -16,4 +16,4 @@ setInterval(() => {
         messageDeletedMap.shift();
       })
     }
-}, 300000);
+}, 5000);
