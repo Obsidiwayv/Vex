@@ -13,11 +13,13 @@ setInterval(() => {
         sleep(2000);
         const embed: EmbedOptions = {
             title: `Messages deleted by ${name}${attachments.length ? ", (Attachments below)" : ""}`,
-            description: messages.map((s) => {
-              const msg = `${message_col === 0 ? `${message_col}.` : ""} ${s}\n\n`;
-              message_col++
-              return msg;
-            }).join(""),
+            ...messages.length ? {
+              description: messages.map((s) => {
+                const msg = `${message_col === 0 ? `${message_col}.` : ""} ${s}\n\n`;
+                message_col++
+                return msg;
+              }).join("")
+            } : {},
             color: 0xD03D33
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
