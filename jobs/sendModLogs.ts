@@ -26,7 +26,7 @@ setInterval(() => {
         if (attachments.length) {
           const files: Eris.FileContent[] = []
           attachments.forEach((a) => files.push({
-            file: `attachment://${a.filename}`,
+            file: `attachment://${a.url}`,
             name: a.filename
           }));
           client.createMessage(log_channel.str(), {}, files);
