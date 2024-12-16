@@ -1,1 +1,3 @@
-export function makeGDServerRequest() {}
+export function makeGDServerRequest(endpoint: string) {
+    
+}

@@ -17,6 +17,7 @@ export const messageDeletedMap: Array<{
   id: string;
   name: string;
   messages: string[];
+  attachments: Eris.Attachment[];
 }> = [];
 
 const token = readKey("TKN");
