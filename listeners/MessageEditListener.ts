@@ -15,11 +15,11 @@ export default function(m_n: Eris.Message, m_o: Eris.Message) {
         embeds: [{
             title: `Message edited by ${m_n.author.username}`,
             fields: [{
-                name: "Previously",
-                value: append(MessageUtils.block(m_o.content), Emojis.Remove)
+                name: append("Previously", Emojis.Remove),
+                value: m_o.content
             }, {
-                name: "Currently",
-                value: append(MessageUtils.block(m_n.content), Emojis.Add)
+                name: append("Currently", Emojis.Add),
+                value: m_n.content
             }],
             color: 0xD03D33
         }]
