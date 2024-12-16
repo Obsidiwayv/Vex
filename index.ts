@@ -12,13 +12,8 @@ import { GeminiCommand } from "./commands/Gemini";
 
 import "./jobs/sendModLogs";
 import MessageDeleteListener from "./listeners/MessageDeleteListener";
+import MessageEditListener from "./listeners/MessageEditListener";
 
-export const messageDeletedMap: Array<{
-  id: string;
-  name: string;
-  messages: string[];
-  attachments: Eris.Attachment[];
-}> = [];
 
 const token = readKey("TKN");
 if (token.unknown()) {
@@ -56,6 +51,8 @@ function listenToEvents(client: Eris.Client) {
   //client.on("guildMemberAdd", MemberJoin);
   client.on("messageDelete", (m: any) => MessageDeleteListener(m))
   client.on("messageCreate", (m: any) => MessageCreateListener(m));
+  // m_o might be uncached but all we need it for the content anyway
+  client.on("messageUpdate", (m_n: any, m_o: any) => MessageEditListener(m_n, m_o));
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
 }

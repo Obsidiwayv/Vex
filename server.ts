@@ -11,6 +11,7 @@ app.post("/webhooks/post", (req, res) => {
   if (!GithubListener.validate(req)) {
     return res.status(400).send("Invalid request");
   }
+  console.log(req.body);
   GithubListener.handle(req, res);
   // Make sure github gets the code
   res.status(202).send("Accepted");

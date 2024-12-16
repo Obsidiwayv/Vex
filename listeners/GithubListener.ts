@@ -4,8 +4,6 @@ import { readKey } from "../config/config.reader";
 import type Eris from "eris";
 import { debug, log } from "../logger";
 import axios from "axios";
-import ts from "typescript";
-import Emoji from "../config/Emoji";
 
 function runGitCommand() {
   if (typeof Bun !== "undefined") {
