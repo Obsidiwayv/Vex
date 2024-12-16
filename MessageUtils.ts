@@ -5,6 +5,6 @@ export default class {
     }
 
     static block(cont: string) {
-        return `\`\`\`${cont}\`\`\``;
+        return `\`${cont}\``;
     }
 }
