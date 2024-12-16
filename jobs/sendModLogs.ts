@@ -23,14 +23,6 @@ setInterval(() => {
             color: 0xD03D33
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
-        if (attachments.length) {
-          const files: Eris.FileContent[] = []
-          attachments.forEach((a) => files.push({
-            file: `attachment://${a.url}`,
-            name: a.filename
-          }));
-          client.createMessage(log_channel.str(), {}, files);
-        }
         messageDeletedMap.shift();
         message_col = 0;
       })
