@@ -10,7 +10,6 @@ import MessageCreateListener from "./listeners/MessageCreateListener";
 import { checkAliases, RegisterCommand } from "./CommandRegistry";
 import { GeminiCommand } from "./commands/Gemini";
 
-import "./jobs/sendModLogs";
 import MessageDeleteListener from "./listeners/MessageDeleteListener";
 import MessageEditListener from "./listeners/MessageEditListener";
 
