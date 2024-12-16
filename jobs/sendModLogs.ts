@@ -31,4 +31,4 @@ setInterval(() => {
         message_col = 0;
       })
     }
-}, 5000);
+}, 1000);
