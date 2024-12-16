@@ -7,5 +7,6 @@ export default function(m: Eris.Message) {
         messageDeletedMap.push({ id: m.author.id, attachments: m.attachments, name: m.author.username, messages: [m.content] });
     } else {
         deletedMessages.messages.push(m.content);
+        deletedMessages.attachments = m.attachments;
     }
 }
