@@ -1,4 +1,4 @@
-import { EmbedOptions } from "eris";
+import Eris, { EmbedOptions } from "eris";
 import { client, messageDeletedMap } from ".."
 import { readKey } from "../config/config.reader";
 
@@ -23,9 +23,10 @@ setInterval(() => {
             color: 0xD03D33
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
-        console.log(attachments)
+        const files: Eris.FileContent[] = [];
         if (attachments.length) {
-          client.createMessage(log_channel.str(), { attachments });
+          attachments.forEach((a) => files.push({ name: a.filename, file: a.url }));
+          client.createMessage(log_channel.str(), {}, files);
         }
         messageDeletedMap.shift();
         message_col = 0;
