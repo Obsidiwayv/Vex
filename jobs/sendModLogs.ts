@@ -24,13 +24,12 @@ setInterval(() => {
         };
         client.createMessage(log_channel.str(), { embeds: [embed] });
         if (attachments.length) {
-          const att: Eris.PartialAttachment[] = []
-          attachments.forEach((a) => att.push({
-            description: a.description,
-            id: a.id,
-            filename: a.filename
+          const files: Eris.FileContent[] = []
+          attachments.forEach((a) => files.push({
+            file: `attachment://${a.filename}`,
+            name: a.filename
           }));
-          client.createMessage(log_channel.str(), { attachments: att });
+          client.createMessage(log_channel.str(), {}, files);
         }
         messageDeletedMap.shift();
         message_col = 0;
