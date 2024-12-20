@@ -12,6 +12,8 @@ import { GeminiCommand } from "./commands/Gemini";
 
 import MessageDeleteListener from "./listeners/MessageDeleteListener";
 import MessageEditListener from "./listeners/MessageEditListener";
+import { createPool } from "mariadb";
+import WLCommand from "./commands/WL";
 
 
 const token = readKey("TKN");
@@ -33,6 +35,8 @@ export const client = new Client(token.str(), {
   },
 });
 
+export const database = createPool(readKey("DB_STRING").str());
+
 async function start() {
   debug("attempting to start the bot");
   log(`Starting bot (${debugMode() ? "Debug mode" : "Debug disabled"})`);
@@ -42,6 +46,7 @@ async function start() {
   debug("Registering commands");
   {
     RegisterCommand("ai", new GeminiCommand(), checkAliases(["g"]));
+    RegisterCommand("wl", new WLCommand());
   }
 }
 

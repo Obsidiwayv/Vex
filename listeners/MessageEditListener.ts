@@ -1,8 +1,8 @@
 import Eris from "eris";
 import { readKey } from "../config/config.reader";
 import { client } from "..";
-import { append, Emojis } from "../config/Emoji";
 import MessageUtils from "../MessageUtils";
+import { append, getEmoji } from "../config/Emoji";
 
 const log_channel = readKey("MOD_LOG_CHANNEL");
 
@@ -15,10 +15,10 @@ export default function(m_n: Eris.Message, m_o: Eris.Message) {
         embeds: [{
             title: `Message edited by ${m_n.author.username}`,
             fields: [{
-                name: append("Previously", Emojis.Remove),
+                name: append("Previously", getEmoji("Remove")),
                 value: m_o.content
             }, {
-                name: append("Currently", Emojis.Add),
+                name: append("Currently", getEmoji("Add")),
                 value: m_n.content
             }],
             color: 0xD03D33

@@ -15,6 +15,10 @@ class Key {
     return parseInt(this.k);
   }
 
+  array<T>() {
+    return this.k.split("|") as Array<T>;
+  }
+
   unknown() {
     return this.k === "unknown";
   }
@@ -26,7 +30,7 @@ function readFile() {
   const cfg_p = "cfg-prod";
   const cfg_d = "cfg-dev";
 
-  let cfg_file;
+  let cfg_file: string | string[];
   if (modes.production) {
     cfg_file = fs.readFileSync(path.join(base_path, cfg_p), encoding);
   } else {

@@ -1,11 +1,21 @@
 import type Eris from "eris";
 import { readKey } from "../config/config.reader";
 import { ccmap } from "../CommandRegistry";
+import { database } from "..";
+import { WLChannelObject } from "../database/DB";
+import { getEmoji } from "../config/Emoji";
+import { isEnabled } from "../check";
 
 export default function(message: Eris.Message) {
+    
+    if (message.author.bot) return;
+
+    if (readKey("WL_CHANNELS").array<string>().includes(message.channel.id) 
+        && message.content.includes("w/l")) {
+        HandleWL(message);
+    };
     const prefix = readKey("PREFIX");
 
-    if (message.author.bot) return;
     if (!message.content.startsWith(prefix.str())) return;
 
     const args = message.content.slice(prefix.str().length).split(" ")
@@ -13,4 +23,19 @@ export default function(message: Eris.Message) {
 
     const command = ccmap.get(args[0]);
     if (command) command.execute(message, { args: args_after });
+}
+
+async function HandleWL(message: Eris.Message) {
+    const dbObj = await database.query<WLChannelObject[]>(
+        `SELECT locked FROM win_lose where channel = ${message.channel.id}`
+    );
+    console.log(dbObj);
+    const obj = dbObj[0];
+    if (typeof obj !== "undefined" 
+        && !isEnabled(obj.locked)
+        && message.attachments.length) {
+        message.addReaction(getEmoji("Upvote").discordReconized());
+        message.addReaction(getEmoji("Polarity").discordReconized());
+        message.addReaction(getEmoji("Downvote").discordReconized());
+    }
 }
