@@ -30,6 +30,10 @@ export default class WLCommand extends BaseCommand {
         }
     }
 
+    public isAdmin(): boolean {
+        return true;
+    }
+
     private async updateSQL(channelID: string, lock: string) {
         await database.query(
             `UPDATE win_lose SET locked = '${lock}' where channel = ${channelID}`

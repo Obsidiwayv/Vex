@@ -6,4 +6,7 @@ export interface CTX {
 
 export class BaseCommand {
     public execute(message: Eris.Message, ctx: CTX) {}
+    public isAdmin() {
+        return false;
+    }
 }

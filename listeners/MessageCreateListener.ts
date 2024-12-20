@@ -22,6 +22,11 @@ export default function(message: Eris.Message) {
     const args_after = args.slice(1);
 
     const command = ccmap.get(args[0]);
+    const role = readKey("VC_COMMANDER_ROLE");
+
+    if (command.isAdmin() && !message.member.roles.includes(role.str())) {
+        return;
+    }
     if (command) command.execute(message, { args: args_after });
 }
 
@@ -29,7 +34,6 @@ async function HandleWL(message: Eris.Message) {
     const dbObj = await database.query<WLChannelObject[]>(
         `SELECT locked FROM win_lose where channel = ${message.channel.id}`
     );
-    console.log(dbObj);
     const obj = dbObj[0];
     if (typeof obj !== "undefined" 
         && !isEnabled(obj.locked)
