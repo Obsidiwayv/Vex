@@ -7,6 +7,8 @@ import { getEmoji } from "../config/Emoji";
 import { isEnabled } from "../check";
 
 export default function(message: Eris.Message) {
+
+    if (["skibidi", "gyat", "gyatt"].includes(message.content)) message.delete();
     
     if (message.author.bot) return;
 
