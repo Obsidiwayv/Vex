@@ -7,14 +7,6 @@ import { getEmoji } from "../config/Emoji";
 import { isEnabled } from "../check";
 
 export default function(message: Eris.Message) {
-
-    for (const w of ["skibidi", "gyat", "gyatt"]) {
-        if (message.content.includes(w)) {
-            message.delete();
-            return;
-        }
-    }
-    
     if (message.author.bot) return;
 
     if (readKey("WL_CHANNELS").array<string>().includes(message.channel.id) 
