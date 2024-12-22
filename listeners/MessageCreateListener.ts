@@ -8,7 +8,12 @@ import { isEnabled } from "../check";
 
 export default function(message: Eris.Message) {
 
-    if (["skibidi", "gyat", "gyatt"].includes(message.content.toLowerCase())) message.delete();
+    for (const w of ["skibidi", "gyat", "gyatt"]) {
+        if (message.content.includes(w)) {
+            message.delete();
+            return;
+        }
+    }
     
     if (message.author.bot) return;
 
