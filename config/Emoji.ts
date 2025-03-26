@@ -40,7 +40,7 @@ export class PlasmaEmojis {
      * 
      */
     public DiscordReconized() {
-        const regex = /[a-z]+:[0-9]+/.exec(this.e);
+        const regex = /(a:)?[a-z]+:[0-9]+/.exec(this.e);
         if (!regex) return "UNKNOWN_EMOJI";
         else return regex[0];
     }
