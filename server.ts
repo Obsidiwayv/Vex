@@ -29,7 +29,6 @@ Deno.serve({
             if (!GithubListener.validate(req)) {
                 return new Response("Invalid Request", { status: 400 });
             }
-            console.log(req.body);
             GithubListener.handle(req);
 //     Make sure GitHub gets the code
             return new Response("Accepted", { status: 200 });

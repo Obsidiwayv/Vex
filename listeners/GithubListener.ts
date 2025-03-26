@@ -16,7 +16,8 @@ export default class {
       this.createMessage(
         `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
       );
-      this.update();
+      this.update()
+          .then(() => null);
     }
   }
 
