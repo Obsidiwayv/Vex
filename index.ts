@@ -14,7 +14,7 @@ import MessageDeleteListener from "./listeners/MessageDeleteListener.ts";
 import MessageEditListener from "./listeners/MessageEditListener.ts";
 import { createPool } from "mariadb";
 import WLCommand from "./commands/WL.ts";
-import Reaction from "./listeners/common/Reaction.ts";
+//import Reaction from "./listeners/common/Reaction.ts";
 import {SnowTransfer} from "npm:snowtransfer@0.13.1";
 import {PlasmaEmojis} from "./config/Emoji.ts";
 
@@ -66,8 +66,8 @@ function listenToEvents(client: Eris.Client) {
   client.on("messageCreate", (m: any) => MessageCreateListener(m));
   // m_o might be uncached but all we need it for the content anyway
   client.on("messageUpdate", (m_n: any, m_o: any) => MessageEditListener(m_n, m_o));
-  client.on("messageReactionAdd", (message: any, emoji) => Reaction({ message, emoji }, false));
-  client.on("messageReactionRemove", (message: any, emoji) => Reaction({ message, emoji }, true));
+  //client.on("messageReactionAdd", (message: any, emoji) => Reaction({ message, emoji }, false));
+  //client.on("messageReactionRemove", (message: any, emoji) => Reaction({ message, emoji }, true));
   client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
