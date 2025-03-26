@@ -21,15 +21,19 @@ const GITHUB_ROUTE = new URLPattern({ pathname: "/webhooks/post" });
 //
 // app.listen({ port: port.int(), host: host.str() });
 
-Deno.serve((req) => {
-  if (GITHUB_ROUTE.exec(req.url)) {
-       if (!GithubListener.validate(req)) {
-         return new Response("Invalid Request", { status: 400 });
-       }
-       console.log(req.body);
-       GithubListener.handle(req);
+Deno.serve({
+    port: port.int(),
+    hostname: host.str(),
+    handler: (req) => {
+        if (GITHUB_ROUTE.exec(req.url)) {
+            if (!GithubListener.validate(req)) {
+                return new Response("Invalid Request", { status: 400 });
+            }
+            console.log(req.body);
+            GithubListener.handle(req);
 //     Make sure GitHub gets the code
-       return new Response("Accepted", { status: 200 });
-  }
-  return new Response("-1", { status: 400 });
+            return new Response("Accepted", { status: 200 });
+        }
+        return new Response("-1", { status: 400 });
+    }
 });

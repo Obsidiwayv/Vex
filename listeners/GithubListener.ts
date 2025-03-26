@@ -12,11 +12,11 @@ async function runGitCommand() {
 export default class {
   static handle(req: Request) {
     const response: any = req.body;
-    if (response.ref) {
+    if (response.ref === "refs/heads/main") {
       this.createMessage(
         `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
       );
-      //this.update();
+      this.update();
     }
   }
 
