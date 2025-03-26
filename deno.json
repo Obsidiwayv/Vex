@@ -13,6 +13,6 @@
   "nodeModulesDir": "auto",
   "tasks": {
     "dev": "deno run -A index.ts",
-    "start": "deno run --allow-read --allow-net --allow-env index.ts"
+    "start": "deno run --allow-read --allow-net --allow-sys --allow-env index.ts"
   }
 }
