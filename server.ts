@@ -1,20 +1,35 @@
-import Fastify from "fastify";
-import { readKey } from "./config/config.reader";
-import GithubListener from "./listeners/GithubListener";
+//import Fastify from "fastify";
+import { readKey } from "./config/config.reader.ts";
+import GithubListener from "./listeners/GithubListener.ts";
 
-
-const app = Fastify({ logger: true });
+// Fastify isn't supported in Deno
+//const app = Fastify({ logger: true });
 const port = readKey("PORT");
 const host = readKey("HOST");
 
-app.post("/webhooks/post", (req, res) => {
-  if (!GithubListener.validate(req)) {
-    return res.status(400).send("Invalid request");
-  }
-  console.log(req.body);
-  GithubListener.handle(req, res);
-  // Make sure github gets the code
-  res.status(202).send("Accepted");
-});
+const GITHUB_ROUTE = new URLPattern({ pathname: "/webhooks/post" });
 
-app.listen({ port: port.int(), host: host.str() });
+// app.post("/webhooks/post", (req, res) => {
+//   if (!GithubListener.validate(req)) {
+//     return res.status(400).send("Invalid request");
+//   }
+//   console.log(req.body);
+//   GithubListener.handle(req, res);
+//   // Make sure github gets the code
+//   res.status(202).send("Accepted");
+// });
+//
+// app.listen({ port: port.int(), host: host.str() });
+
+Deno.serve((req) => {
+  if (GITHUB_ROUTE.exec(req.url)) {
+       if (!GithubListener.validate(req)) {
+         return new Response("Invalid Request", { status: 400 });
+       }
+       console.log(req.body);
+       GithubListener.handle(req);
+//     Make sure GitHub gets the code
+       return new Response("Accepted", { status: 200 });
+  }
+  return new Response("-1", { status: 400 });
+});

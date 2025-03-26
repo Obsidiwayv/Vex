@@ -1,8 +1,6 @@
-import fs from "fs";
-import path from "path";
-import modes from "./modes.json";
-import { isEnabled } from "../check";
-import { createLog } from "../logger";
+import modes from "./modes.json" with { type: "json" };
+import { isEnabled } from "../check.ts";
+import { createLog } from "../logger.ts";
 
 class Key {
   constructor(private k: any) {}
@@ -26,15 +24,14 @@ class Key {
 
 function readFile() {
   const base_path = "config";
-  const encoding: BufferEncoding = "utf8";
   const cfg_p = "cfg-prod";
   const cfg_d = "cfg-dev";
 
   let cfg_file: string | string[];
   if (modes.production) {
-    cfg_file = fs.readFileSync(path.join(base_path, cfg_p), encoding);
+    cfg_file = Deno.readTextFileSync(`${base_path}/${cfg_p}`);
   } else {
-    cfg_file = fs.readFileSync(path.join(base_path, cfg_d), encoding);
+    cfg_file = Deno.readTextFileSync(`${base_path}/${cfg_d}`);
   }
   createLog(`Using config file ${modes.production ? cfg_p : cfg_d}`);
   cfg_file = cfg_file.split("\n");

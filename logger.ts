@@ -1,5 +1,4 @@
-import { debugMode } from "./config/config.reader";
-import fs from "fs";
+import { debugMode } from "./config/config.reader.ts";
 
 enum Emojis {
   GEAR = "⚙️",
@@ -36,11 +35,11 @@ export function debug(text: string) {
   log(text, { debug: true });
 }
 
-export function crashReport(text: string[] | Error) {
+export async function crashReport(text: string[] | Error) {
   const current_date = new Date().toISOString();
   log("A crash has been detected and will now write to a file");
-  fs.writeFileSync(
+  Deno.writeTextFileSync(
     `crash/${current_date}.log`,
-    Array.isArray(text) ? text.join("\n") : text.message,
+    Array.isArray(text) ? text.join("\n") : text.message
   );
 }

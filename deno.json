@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "@google/generative-ai": "npm:@google/generative-ai@^0.24.0",
+    "axios": "npm:axios@^1.8.4",
+    "discord-api-types": "npm:discord-api-types@^0.37.119",
+    "eris": "npm:eris@^0.18.0",
+    "fastify": "npm:fastify@^5.2.1",
+    "mariadb": "npm:mariadb@^3.4.0",
+    "skia-canvas": "npm:skia-canvas@^2.0.2",
+    "snowtransfer": "npm:snowtransfer@^0.13.1",
+    "wget": "npm:wget@^0.0.1"
+  },
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "dev": "deno run -A index.ts",
+    "start": "deno run --allow-read --allow-net index.ts"
+  }
+}

@@ -1,6 +1,6 @@
 import type Eris from "eris";
-import { debug } from "../logger";
-import { readKey } from "../config/config.reader";
+import { debug } from "../logger.ts";
+import { readKey } from "../config/config.reader.ts";
 
 export default function (guild: Eris.Guild, member: Eris.Member) {
   const role_id = readKey("MEMBER_JOIN_ROLE");

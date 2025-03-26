@@ -1,5 +1,5 @@
 import Eris from "eris";
-import { readKey } from "../config/config.reader";
+import { readKey } from "../config/config.reader.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 

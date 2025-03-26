@@ -1,11 +1,11 @@
 import { Message } from "eris";
-import { BaseCommand, CTX } from "./Base";
-import { database } from "..";
-import { WLChannelObject } from "../database/DB";
-import { isEnabled } from "../check";
+import { BaseCommand, CTX } from "./Base.ts";
+import { database } from "../index.ts";
+import { WLChannelObject } from "../database/DB.ts";
+import { isEnabled } from "../check.ts";
 
 export default class WLCommand extends BaseCommand {
-    public async execute(message: Message, ctx: CTX) {
+    public override async execute(message: Message, ctx: CTX) {
         const dbObj = await database.query<WLChannelObject[]>(
             `SELECT locked FROM win_lose where channel = ${message.channel.id}`
         );
@@ -14,7 +14,7 @@ export default class WLCommand extends BaseCommand {
             if (isEnabled(obj.locked)) {
                 message.channel.createMessage("The bot is already restricted from reacting in this W/L channel.");
             } else {
-                this.updateSQL(message.channel.id, "YES");
+                await this.updateSQL(message.channel.id, "YES");
                 message.channel.createMessage("Locked this WL channel.");
             }
             return;
@@ -23,14 +23,14 @@ export default class WLCommand extends BaseCommand {
             if (!isEnabled(obj.locked)) {
                 message.channel.createMessage("The bot is already not restricted from reacting in this W/L channel.");
             } else {
-                this.updateSQL(message.channel.id, "NO");
+                await this.updateSQL(message.channel.id, "NO");
                 message.channel.createMessage("Unlocked this WL channel.");
             }
             return;
         }
     }
 
-    public isAdmin(): boolean {
+    public override isAdmin(): boolean {
         return true;
     }
 

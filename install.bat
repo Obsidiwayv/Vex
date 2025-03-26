@@ -1,0 +1,1 @@
+deno add npm:@google/generative-ai npm:axios npm:wget npm:discord-api-types npm:@types/node npm:eris npm:fastify npm:skia-canvas npm:mariadb npm:snowtransfer --allow-scripts=npm:skia-canvas@2.0.2

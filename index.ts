@@ -1,19 +1,22 @@
 import Eris, { Client } from "eris";
-import { debugMode, readKey } from "./config/config.reader";
-import { crashReport, debug, log } from "./logger";
-import { voiceJoin } from "./listeners/VoiceEvents";
-import { isEnabled } from "./check";
+import { debugMode, readKey } from "./config/config.reader.ts";
+import { crashReport, debug, log } from "./logger.ts";
+import { voiceJoin } from "./listeners/VoiceEvents.ts";
+import { isEnabled } from "./check.ts";
 if (isEnabled(readKey("ENABLE_SERVER").str())) {
-  require("./server");
+  import("./server.ts");
 }
-import MessageCreateListener from "./listeners/MessageCreateListener";
-import { checkAliases, RegisterCommand } from "./CommandRegistry";
-import { GeminiCommand } from "./commands/Gemini";
+import MessageCreateListener from "./listeners/MessageCreateListener.ts";
+import { checkAliases, RegisterCommand } from "./CommandRegistry.ts";
+import { GeminiCommand } from "./commands/Gemini.ts";
 
-import MessageDeleteListener from "./listeners/MessageDeleteListener";
-import MessageEditListener from "./listeners/MessageEditListener";
+import MessageDeleteListener from "./listeners/MessageDeleteListener.ts";
+import MessageEditListener from "./listeners/MessageEditListener.ts";
 import { createPool } from "mariadb";
-import WLCommand from "./commands/WL";
+import WLCommand from "./commands/WL.ts";
+import Reaction from "./listeners/common/Reaction.ts";
+import {SnowTransfer} from "npm:snowtransfer@0.13.1";
+import {PlasmaEmojis} from "./config/Emoji.ts";
 
 
 const token = readKey("TKN");
@@ -35,7 +38,13 @@ export const client = new Client(token.str(), {
   },
 });
 
+export const rest = new SnowTransfer(token.str());
+
 export const database = createPool(readKey("DB_STRING").str());
+
+async function OnReady() {
+  await PlasmaEmojis.GetAllFromRest();
+}
 
 async function start() {
   debug("attempting to start the bot");
@@ -57,6 +66,9 @@ function listenToEvents(client: Eris.Client) {
   client.on("messageCreate", (m: any) => MessageCreateListener(m));
   // m_o might be uncached but all we need it for the content anyway
   client.on("messageUpdate", (m_n: any, m_o: any) => MessageEditListener(m_n, m_o));
+  client.on("messageReactionAdd", (message: any, emoji) => Reaction({ message, emoji }, false));
+  client.on("messageReactionRemove", (message: any, emoji) => Reaction({ message, emoji }, true));
+  client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
 }

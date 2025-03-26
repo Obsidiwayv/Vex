@@ -1,6 +1,8 @@
-import { GenerateContentResult, GoogleGenerativeAI } from "@google/generative-ai";
-import { GoogleAICacheManager } from "@google/generative-ai/server";
-import { readKey } from "./config/config.reader";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { readKey } from "./config/config.reader.ts";
+
+import wget from "wget";
+import { debug } from "./logger.ts";
 
 export class GeminiExtension {
     private static API_KEY = readKey("GEMINI_API_KEY");
@@ -14,5 +16,12 @@ export class GeminiExtension {
     public async createResponse(content: string) {
         const genAI = GeminiExtension.init();
         return await genAI.generateContent(content);
+    }
+}
+
+export class SCPExtension {
+    public getSCPIndexFile() {
+        wget.download("https://scp-data.tedivm.com/data/scp/items/index.json", ".files/index.json")
+            .on("error", debug("Unable to download SCP index"));
     }
 }
