@@ -1,21 +1,26 @@
-import type { FastifyReply, FastifyRequest } from "fastify";
 import { client } from "../index.ts";
 import { readKey } from "../config/config.reader.ts";
 import type Eris from "eris";
 import { debug, log } from "../logger.ts";
 
+function createMessage(text: Eris.MessageContent) {
+  client.createMessage(readKey("GIT_UPDATE_CHANNEL").str(), text);
+}
+
 async function runGitCommand() {
   const pipes = new Deno.Command("git", { args: ["pull"] });
   const { stderr, stdout } = await pipes.output();
+
   console.log(new TextDecoder().decode(stdout));
   console.log(new TextDecoder().decode(stderr));
+  createMessage(`\`\`\`diff\n${stdout}\n\`\`\``);
 }
 
 export default class {
   static async handle(req: Request) {
     const response: any = await req.json();
     if (response.ref === "refs/heads/main") {
-      this.createMessage(
+      createMessage(
         `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
       );
       await this.update();
@@ -31,10 +36,6 @@ export default class {
       return false;
     }
     return true;
-  }
-
-  private static createMessage(text: Eris.MessageContent) {
-    client.createMessage(readKey("GIT_UPDATE_CHANNEL").str(), text);
   }
 
   private static async update() {
