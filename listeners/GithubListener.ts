@@ -5,19 +5,20 @@ import type Eris from "eris";
 import { debug, log } from "../logger.ts";
 
 async function runGitCommand() {
-  await new Deno.Command("git", { args: ["pull"] })
-      .output();
+  const pipes = new Deno.Command("git", { args: ["pull"] });
+  const { stderr, stdout } = await pipes.output();
+  console.log(new TextDecoder().decode(stdout));
+  console.log(new TextDecoder().decode(stderr));
 }
 
 export default class {
-  static handle(req: Request) {
+  static async handle(req: Request) {
     const response: any = req.body;
     if (response.ref === "refs/heads/main") {
       this.createMessage(
         `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
       );
-      this.update()
-          .then(() => null);
+      await this.update();
     }
   }
 
@@ -37,7 +38,7 @@ export default class {
   }
 
   private static async update() {
-    runGitCommand();
+    await runGitCommand();
     const api_key = readKey("PANEL_KEY");
     const server_id = readKey("SERVER_ID");
     const host_url = readKey("HOST_URL");

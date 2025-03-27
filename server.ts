@@ -24,12 +24,12 @@ const GITHUB_ROUTE = new URLPattern({ pathname: "/webhooks/post" });
 Deno.serve({
     port: port.int(),
     hostname: host.str(),
-    handler: (req) => {
+    handler: async (req) => {
         if (GITHUB_ROUTE.exec(req.url)) {
             if (!GithubListener.validate(req)) {
                 return new Response("Invalid Request", { status: 400 });
             }
-            GithubListener.handle(req);
+            await GithubListener.handle(req);
 //     Make sure GitHub gets the code
             return new Response("Accepted", { status: 200 });
         }
