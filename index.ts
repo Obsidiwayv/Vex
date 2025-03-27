@@ -72,5 +72,5 @@ function listenToEvents(client: Eris.Client) {
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
 }
-
+// stfu
 start();
