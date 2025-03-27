@@ -15,10 +15,10 @@ export default function(m_n: Eris.Message, m_o: Eris.Message) {
         embeds: [{
             title: `Message edited by ${m_n.author.username}`,
             fields: [{
-                name: Append("plus", GetEmoji("Remove")),
+                name: Append("original", GetEmoji("minus")),
                 value: m_o.content
             }, {
-                name: Append("minus", GetEmoji("Add")),
+                name: Append("new", GetEmoji("plus")),
                 value: m_n.content
             }],
             color: 0xff006f
