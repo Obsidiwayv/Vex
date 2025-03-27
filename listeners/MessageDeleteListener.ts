@@ -1,8 +1,8 @@
 import Eris, { EmbedOptions } from "eris";
 import { client } from "../index.ts";
-import { readKey } from "../config/config.reader.ts";
+import { ReadKey } from "../config/config.reader.ts";
 
-const log_channel = readKey("MOD_LOG_CHANNEL");
+const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
 export default function (m: Eris.Message) {
   const embed: EmbedOptions = {
@@ -10,7 +10,7 @@ export default function (m: Eris.Message) {
       m.attachments.length ? ", (Has Attachments)" : ""
     }`,
     description: m.content,
-    color: 0xff8d46,
+    color: 0xfff100,
   };
-  client.createMessage(log_channel.str(), { embeds: [embed] });
+  client.createMessage(log_channel.Str(), { embeds: [embed] });
 }

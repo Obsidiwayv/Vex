@@ -35,7 +35,7 @@ export function debug(text: string) {
   log(text, { debug: true });
 }
 
-export async function crashReport(text: string[] | Error) {
+export function crashReport(text: string[] | Error) {
   const current_date = new Date().toISOString();
   log("A crash has been detected and will now write to a file");
   Deno.writeTextFileSync(

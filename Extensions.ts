@@ -1,16 +1,16 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { readKey } from "./config/config.reader.ts";
+import { ReadKey } from "./config/config.reader.ts";
 
 import wget from "wget";
 import { debug } from "./logger.ts";
 
 export class GeminiExtension {
-    private static API_KEY = readKey("GEMINI_API_KEY");
-    private static MODEL = readKey("GEMINI_MODEL_TYPE");
+    private static API_KEY = ReadKey("GEMINI_API_KEY");
+    private static MODEL = ReadKey("GEMINI_MODEL_TYPE");
 
     public static init() {
-        const genAI_base = new GoogleGenerativeAI(this.API_KEY.str());
-        return genAI_base.getGenerativeModel({ model: this.MODEL.str() });
+        const genAI_base = new GoogleGenerativeAI(this.API_KEY.Str());
+        return genAI_base.getGenerativeModel({ model: this.MODEL.Str()});
     }
 
     public async createResponse(content: string) {

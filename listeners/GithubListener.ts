@@ -1,10 +1,10 @@
 import { client } from "../index.ts";
-import { readKey } from "../config/config.reader.ts";
+import { ReadKey } from "../config/config.reader.ts";
 import type Eris from "eris";
 import { debug, log } from "../logger.ts";
 
 function createMessage(text: Eris.MessageContent) {
-  client.createMessage(readKey("GIT_UPDATE_CHANNEL").str(), text);
+  client.createMessage(ReadKey("GIT_UPDATE_CHANNEL").Str(), text);
 }
 
 async function runGitCommand() {
@@ -40,12 +40,12 @@ export default class {
 
   private static async update() {
     await runGitCommand();
-    const api_key = readKey("PANEL_KEY");
-    const server_id = readKey("SERVER_ID");
-    const host_url = readKey("HOST_URL");
-    await fetch(`${host_url.str()}/api/client/servers/${server_id.str()}/power`, {
+    const api_key = ReadKey("PANEL_KEY");
+    const server_id = ReadKey("SERVER_ID");
+    const host_url = ReadKey("HOST_URL");
+    await fetch(`${host_url.Str()}/api/client/servers/${server_id.Str()}/power`, {
       headers: {
-        "Authorization": `Bearer ${api_key.str()}`,
+        "Authorization": `Bearer ${api_key.Str()}`,
         "Content-Type": "application/json",
         "Accept": "Application/vnd.pterodactyl.v1+json",
       },

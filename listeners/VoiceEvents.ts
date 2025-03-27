@@ -1,5 +1,5 @@
 import Eris from "eris";
-import { readKey } from "../config/config.reader.ts";
+import { ReadKey } from "../config/config.reader.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -8,14 +8,14 @@ export async function voiceJoin(
   channel: Eris.AnyVoiceChannel,
   client: Eris.Client,
 ) {
-  const role = readKey("VC_COMMANDER_ROLE");
-  const ping_role = readKey("PING_ROLE");
-  const channel_id = readKey("PING_CHANNEL");
+  const role = ReadKey("VC_COMMANDER_ROLE");
+  const ping_role = ReadKey("PING_ROLE");
+  const channel_id = ReadKey("PING_CHANNEL");
 
   pingRole(
-    role.str(),
-    channel_id.str(),
-    ping_role.str(),
+    role.Str(),
+    channel_id.Str(),
+    ping_role.Str(),
     { channel, client, member },
   );
 }

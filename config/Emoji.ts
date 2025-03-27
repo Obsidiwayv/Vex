@@ -1,6 +1,6 @@
 import {client} from "../index.ts";
-import {readKey} from "./config.reader.ts";
-import {RESTGetAPIApplicationEmojisResult} from "npm:discord-api-types@0.37.119/rest";
+import {ReadKey} from "./config.reader.ts";
+import {RESTGetAPIApplicationEmojisResult} from "discord-api-types/rest";
 
 export class PlasmaEmojis {
     public static cache = new Map<string, string>();
@@ -11,7 +11,7 @@ export class PlasmaEmojis {
         const emojis = await fetch(
             `https://discord.com/api/v10/applications/${client.user.id}/emojis`, {
                 headers: {
-                    "Authorization": `Bot ${readKey("TKN").str()}`
+                    "Authorization": `Bot ${ReadKey("TKN").Str()}`
                 }
             })
         for (const emoji of (await emojis.json() as RESTGetAPIApplicationEmojisResult).items) {
@@ -36,10 +36,10 @@ export class PlasmaEmojis {
     }
 
     /**
-     * Emoji name + ID for discord to reconize them
+     * Emoji name + ID for discord to recognize them
      * 
      */
-    public DiscordReconized() {
+    public DiscordRecognized() {
         const regex = /(a:)?[a-z]+:[0-9]+/.exec(this.e);
         if (!regex) return "UNKNOWN_EMOJI";
         else return regex[0];

@@ -1,9 +1,9 @@
 import Eris from "eris";
-import { readKey } from "../config/config.reader.ts";
+import { ReadKey } from "../config/config.reader.ts";
 import { client } from "../index.ts";
 import { Append, GetEmoji } from "../config/Emoji.ts";
 
-const log_channel = readKey("MOD_LOG_CHANNEL");
+const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
 /**
  * @param m_n New Message
@@ -11,7 +11,7 @@ const log_channel = readKey("MOD_LOG_CHANNEL");
  */
 export default function(m_n: Eris.Message, m_o: Eris.Message) {
     if (m_n && !m_o) return;
-    client.createMessage(log_channel.str(), {
+    client.createMessage(log_channel.Str(), {
         embeds: [{
             title: `Message edited by ${m_n.author.username}`,
             fields: [{

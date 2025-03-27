@@ -1,11 +1,11 @@
 //import Fastify from "fastify";
-import { readKey } from "./config/config.reader.ts";
+import { ReadKey } from "./config/config.reader.ts";
 import GithubListener from "./listeners/GithubListener.ts";
 
 // Fastify isn't supported in Deno
 //const app = Fastify({ logger: true });
-const port = readKey("PORT");
-const host = readKey("HOST");
+const port = ReadKey("PORT");
+const host = ReadKey("HOST");
 
 const GITHUB_ROUTE = new URLPattern({ pathname: "/webhooks/post" });
 
@@ -22,8 +22,8 @@ const GITHUB_ROUTE = new URLPattern({ pathname: "/webhooks/post" });
 // app.listen({ port: port.int(), host: host.str() });
 
 Deno.serve({
-    port: port.int(),
-    hostname: host.str(),
+    port: port.Int(),
+    hostname: host.Str(),
     handler: async (req) => {
         if (GITHUB_ROUTE.exec(req.url)) {
             if (!GithubListener.validate(req)) {

@@ -1,9 +1,9 @@
 import Eris, { Client } from "eris";
-import { debugMode, readKey } from "./config/config.reader.ts";
+import { debugMode, ReadKey } from "./config/config.reader.ts";
 import { crashReport, debug, log } from "./logger.ts";
 import { voiceJoin } from "./listeners/VoiceEvents.ts";
 import { isEnabled } from "./check.ts";
-if (isEnabled(readKey("ENABLE_SERVER").str())) {
+if (isEnabled(ReadKey("ENABLE_SERVER").Str())) {
   import("./server.ts");
 }
 import MessageCreateListener from "./listeners/MessageCreateListener.ts";
@@ -13,18 +13,19 @@ import { GeminiCommand } from "./commands/Gemini.ts";
 import MessageDeleteListener from "./listeners/MessageDeleteListener.ts";
 import MessageEditListener from "./listeners/MessageEditListener.ts";
 import { createPool } from "mariadb";
-import WLCommand from "./commands/WL.ts";
+//import WLCommand from "./commands/WL.ts";
 //import Reaction from "./listeners/common/Reaction.ts";
-import {SnowTransfer} from "npm:snowtransfer@0.13.1";
+import {SnowTransfer} from "snowtransfer";
 import {PlasmaEmojis} from "./config/Emoji.ts";
+import MessageBulkDeleteListener from "./listeners/MessageBulkDeleteListener.ts";
 
 
-const token = readKey("TKN");
-if (token.unknown()) {
+const token = ReadKey("TKN");
+if (token.Unknown()) {
   log("'TKN' is unknown and will throw an error");
 }
 
-export const client = new Client(token.str(), {
+export const client = new Client(token.Str(), {
   intents: [
     "guildMessageReactions",
     "guildVoiceStates",
@@ -38,9 +39,9 @@ export const client = new Client(token.str(), {
   },
 });
 
-export const rest = new SnowTransfer(token.str());
+export const rest = new SnowTransfer(token.Str());
 
-export const database = createPool(readKey("DB_STRING").str());
+export const database = createPool(ReadKey("DB_STRING").Str());
 
 async function OnReady() {
   await PlasmaEmojis.GetAllFromRest();
@@ -54,15 +55,16 @@ async function start() {
   listenToEvents(client);
   debug("Registering commands");
   {
-    RegisterCommand("ai", new GeminiCommand(), checkAliases(["g"]));
-    RegisterCommand("wl", new WLCommand());
+    RegisterCommand("ai", new GeminiCommand(), checkAliases(["g", "gemini"]));
+    //RegisterCommand("wl", new WLCommand());
   }
 }
 
 function listenToEvents(client: Eris.Client) {
   client.on("voiceChannelJoin", (m, c) => voiceJoin(m, c, client));
   //client.on("guildMemberAdd", MemberJoin);
-  client.on("messageDelete", (m: any) => MessageDeleteListener(m))
+  client.on("messageDelete", (m: any) => MessageDeleteListener(m));
+  client.on("messageDeleteBulk", MessageBulkDeleteListener);
   client.on("messageCreate", (m: any) => MessageCreateListener(m));
   // m_o might be uncached but all we need it for the content anyway
   client.on("messageUpdate", (m_n: any, m_o: any) => MessageEditListener(m_n, m_o));

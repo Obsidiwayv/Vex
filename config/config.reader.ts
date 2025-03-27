@@ -5,19 +5,19 @@ import { createLog } from "../logger.ts";
 class Key {
   constructor(private k: any) {}
 
-  str() {
+  Str() {
     return this.k as string;
   }
 
-  int() {
+  Int() {
     return parseInt(this.k);
   }
 
-  array<T>() {
+  Array<T>() {
     return this.k.split("|") as Array<T>;
   }
 
-  unknown() {
+  Unknown() {
     return this.k === "unknown";
   }
 }
@@ -46,7 +46,7 @@ export function debugMode() {
   }
 }
 
-export function readKey(key: string) {
+export function ReadKey(key: string) {
   const item = readFile().filter((v) => v.includes(key))[0];
   if (typeof item === "undefined") {
     return new Key("unknown");
