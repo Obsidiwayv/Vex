@@ -16,7 +16,7 @@ export default async function(message: Eris.Message) {
     if (message.author.bot) return;
 
     if (ReadKey("WL_CHANNELS").Array<string>().includes(message.channel.id)
-        && WIN_OR_LOSE.includes(message.content)) {
+        && WIN_OR_LOSE.includes(message.content.toLowerCase())) {
         HandleWL(message);
     }
     const prefix = ReadKey("PREFIX");
