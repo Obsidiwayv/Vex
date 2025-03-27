@@ -13,7 +13,7 @@ async function runGitCommand() {
 
 export default class {
   static async handle(req: Request) {
-    const response: any = req.body;
+    const response: any = await req.json();
     console.log(response.ref);
     if (response.ref === "refs/heads/main") {
       this.createMessage(
