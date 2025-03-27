@@ -13,7 +13,6 @@ async function runGitCommand() {
 
   console.log(new TextDecoder().decode(stdout));
   console.log(new TextDecoder().decode(stderr));
-  createMessage(`\`\`\`diff\n${new TextDecoder().decode(stdout)}\n\`\`\``);
 }
 
 export default class {
