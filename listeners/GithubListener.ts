@@ -14,7 +14,6 @@ async function runGitCommand() {
 export default class {
   static async handle(req: Request) {
     const response: any = await req.json();
-    console.log(response.ref);
     if (response.ref === "refs/heads/main") {
       this.createMessage(
         `Pulling \`${response.before.substring(0, 7)}\` -> \`${response.after.substring(0, 7)}\``,
