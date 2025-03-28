@@ -4,6 +4,7 @@ import { ccmap } from "../CommandRegistry.ts";
 //import { database } from "../index.ts";
 //import { WLChannelObject } from "../database/DB.ts";
 import { GetEmoji } from "../config/Emoji.ts";
+import Resolver from "../util/Resolver.ts";
 //import { isEnabled } from "../check.ts";
 
 const WIN_OR_LOSE = [
@@ -12,7 +13,7 @@ const WIN_OR_LOSE = [
     "win/lose"
 ]
 
-export default async function(message: Eris.Message) {
+export default function(message: Eris.Message) {
     if (message.author.bot) return;
 
     if (ReadKey("WL_CHANNELS").Array<string>().includes(message.channel.id)
@@ -29,12 +30,15 @@ export default async function(message: Eris.Message) {
     const command = ccmap.get(args[0]);
     const role = ReadKey("VC_COMMANDER_ROLE");
 
-    if (command.isAdmin()
+    if (command && command.isAdmin()
         && message.member
         && !message.member.roles.includes(role.Str())) {
         return;
     }
-    if (command) command.execute(message, { args: args_after });
+    if (command) {
+        command.resolvers = Resolver.Register(message, args);
+        command.execute(message, {args: args_after});
+    }
 }
 
 function HandleWL(message: Eris.Message) {

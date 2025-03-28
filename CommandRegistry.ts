@@ -1,9 +1,13 @@
-import type { BaseCommand } from "./commands/Base";
+import type { BaseCommand } from "./commands/Base.ts";
+import {debug} from "./logger.ts";
 
 export const ccmap = new Map<string, BaseCommand>();
 
 export function RegisterCommand(name: string, cclass: BaseCommand, aliases?: string[]) {
     ccmap.set(name, cclass);
+    (async () => {
+        await cclass.event();
+    })();
     if (aliases) {
         aliases.forEach(a => ccmap.set(a, cclass));
     }

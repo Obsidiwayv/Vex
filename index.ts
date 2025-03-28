@@ -9,6 +9,8 @@ if (isEnabled(ReadKey("ENABLE_SERVER").Str())) {
 import MessageCreateListener from "./listeners/MessageCreateListener.ts";
 import { checkAliases, RegisterCommand } from "./CommandRegistry.ts";
 import { GeminiCommand } from "./commands/Gemini.ts";
+import Ban from "./commands/mod/Ban.ts";
+import Kick from "./commands/mod/Kick.ts";
 
 import MessageDeleteListener from "./listeners/MessageDeleteListener.ts";
 import MessageEditListener from "./listeners/MessageEditListener.ts";
@@ -56,6 +58,8 @@ async function start() {
   debug("Registering commands");
   {
     RegisterCommand("ai", new GeminiCommand(), checkAliases(["g", "gemini"]));
+    RegisterCommand("ban", new Ban());
+    RegisterCommand("kick", new Kick());
     //RegisterCommand("wl", new WLCommand());
   }
 }

@@ -10,7 +10,7 @@ export default function(messages: PossiblyUncachedMessage[]) {
         client.createMessage(log_channel.Str(), {
             embeds: [{
                 description: `${messages.length} messages have been purged from \`${channel.name}\``,
-                color: 0x0032ff
+                color: 0x008fff
             }]
         })
     }
