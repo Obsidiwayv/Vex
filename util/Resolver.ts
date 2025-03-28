@@ -11,6 +11,10 @@ export default class {
     public GetMember(index: number) {
         let member: Eris.Member | undefined | null;
 
+        if (!this.args.length) {
+            return this.message.member!;
+        }
+
         member = this.guild.members.find(i => i.id === this.ripSymbols(this.args[index])) ||
             this.guild.members.find(i => i.username === this.args[index]);
 

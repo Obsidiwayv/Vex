@@ -36,7 +36,7 @@ export default function(message: Eris.Message) {
         return;
     }
     if (command) {
-        command.resolvers = Resolver.Register(message, args);
+        command.resolvers = Resolver.Register(message, args_after);
         command.execute(message, {args: args_after});
     }
 }
