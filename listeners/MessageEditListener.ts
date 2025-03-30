@@ -5,14 +5,23 @@ import { Append, GetEmoji } from "../config/Emoji.ts";
 
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
+function VerifyMessages(newMessage: Eris.Message, oldMessage: Eris.Message) {
+    if (!newMessage.content && !newMessage.content) {
+        return false;
+    } else if (newMessage.content === oldMessage.content) {
+        return false;
+    }
+    if (newMessage && !oldMessage) {
+        return false;
+    }
+}
+
 /**
  * @param m_n New Message
  * @param m_o Old Message
  */
 export default function(m_n: Eris.Message, m_o: Eris.Message) {
-    console.log(m_n);
-    console.log(m_o);
-    if (m_n && !m_o) return;
+    if (!VerifyMessages(m_n, m_o)) return;
     client.createMessage(log_channel.Str(), {
         embeds: [{
             title: `Message edited by ${m_n.author.username}`,
