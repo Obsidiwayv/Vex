@@ -10,6 +10,8 @@ const log_channel = ReadKey("MOD_LOG_CHANNEL");
  * @param m_o Old Message
  */
 export default function(m_n: Eris.Message, m_o: Eris.Message) {
+    console.log(m_n);
+    console.log(m_o);
     if (m_n && !m_o) return;
     client.createMessage(log_channel.Str(), {
         embeds: [{
