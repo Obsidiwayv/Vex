@@ -9,6 +9,7 @@ export default class extends BaseCommand {
         if (member.id === message.author.id) return;
 
         member.ban({ reason: ctx.args.length ? ctx.args.join(" ") : "No reason provided" });
+        message.channel.createMessage(`Banned ${member.username}`);
     }
 
     public override isAdmin(): boolean {

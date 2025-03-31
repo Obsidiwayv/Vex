@@ -10,7 +10,7 @@ export default function (m: Eris.Message) {
       m.attachments.length ? ", (Has Attachments)" : ""
     }`,
     description: m.content,
-    color: 0xfff100,
+    color: 0xffc300,
   };
   client.createMessage(log_channel.Str(), { embeds: [embed] });
 }

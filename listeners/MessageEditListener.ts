@@ -14,6 +14,7 @@ function VerifyMessages(newMessage: Eris.Message, oldMessage: Eris.Message) {
     if (newMessage && !oldMessage) {
         return false;
     }
+    return true;
 }
 
 /**
@@ -32,7 +33,7 @@ export default function(m_n: Eris.Message, m_o: Eris.Message) {
                 name: Append("new", GetEmoji("plus")),
                 value: m_n.content
             }],
-            color: 0xff006f
+            color: 0xff003a
         }]
     });
 }

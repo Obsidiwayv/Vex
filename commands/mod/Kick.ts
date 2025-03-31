@@ -9,6 +9,7 @@ export default class extends BaseCommand {
         if (member.id === message.author.id) return;
 
         member.kick(ctx.args.length ? ctx.args.join(" ") : "No reason provided");
+        message.channel.createMessage(`Kicked ${member.username}`);
     }
 
     public override isAdmin(): boolean {
