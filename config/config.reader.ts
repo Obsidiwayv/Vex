@@ -25,7 +25,7 @@ class Key {
 function readFile() {
   const base_path = "config";
   const cfg_p = "cfg-prod";
-  const cfg_d = "cfg-dev";
+  const cfg_d = "cfg-prod";
 
   let cfg_file: string | string[];
   if (modes.production) {

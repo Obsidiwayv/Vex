@@ -20,6 +20,8 @@ import { createPool } from "mariadb";
 import {SnowTransfer} from "snowtransfer";
 import {PlasmaEmojis} from "./config/Emoji.ts";
 import MessageBulkDeleteListener from "./listeners/MessageBulkDeleteListener.ts";
+import Mods from "./commands/Mods.ts";
+import RobloxSearch from "./commands/RobloxSearch.ts";
 
 
 const token = ReadKey("TKN");
@@ -61,6 +63,8 @@ async function start() {
     RegisterCommand("ban", new Ban());
     RegisterCommand("kick", new Kick());
     //RegisterCommand("wl", new WLCommand());
+    RegisterCommand("mods", new Mods());
+    RegisterCommand("rsearch", new RobloxSearch());
   }
 }
 
