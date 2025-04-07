@@ -5,6 +5,9 @@ import { ReadKey } from "../config/config.reader.ts";
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
 export default function (m: Eris.Message) {
+  if (m.author.id === client.user.id) {
+    return client.createMessage(log_channel.Str(), { embeds: m.embeds });
+  }
   const embed: EmbedOptions = {
     title: `Message deleted by ${m.author.username}${
       m.attachments.length ? ", (Has Attachments)" : ""

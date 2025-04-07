@@ -1,7 +1,7 @@
 import Eris, { Client } from "eris";
 import { debugMode, ReadKey } from "./config/config.reader.ts";
 import { crashReport, debug, log } from "./logger.ts";
-import { voiceJoin } from "./listeners/VoiceEvents.ts";
+import {voiceJoin, VoiceStatusUpdate} from "./listeners/VoiceEvents.ts";
 import { isEnabled } from "./check.ts";
 if (isEnabled(ReadKey("ENABLE_SERVER").Str())) {
   import("./server.ts");
@@ -78,6 +78,7 @@ function listenToEvents(client: Eris.Client) {
   client.on("messageUpdate", (m_n: any, m_o: any) => MessageEditListener(m_n, m_o));
   // client.on("messageReactionAdd", (message: any, emoji) => Reaction({ message, emoji }, false));
   // client.on("messageReactionRemove", (message: any, emoji) => Reaction({ message, emoji }, true));
+    client.on("voiceChannelStatusUpdate", (c_o, c_n) => VoiceStatusUpdate(c_o, c_n));
   client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));

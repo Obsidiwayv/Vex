@@ -1,7 +1,21 @@
 import Eris from "eris";
-import { ReadKey } from "../config/config.reader.ts";
+import {DefaultModlogEmbedColor, ReadKey} from "../config/config.reader.ts";
+import {client} from "../index.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+const log_channel = ReadKey("MOD_LOG_CHANNEL");
+
+export async function VoiceStatusUpdate(voice: Eris.AnyVoiceChannel, status: Eris.VoiceStatus | null) {
+  await client.createMessage(log_channel.Str(), {
+    embeds: [{
+      title: `Voice channel status updated`,
+      description: `From \`${status === null ? "UNKNOWN" : status.status}\` to \`${voice.status}\``,
+      color: DefaultModlogEmbedColor(),
+      fields: [{ name: "Channel", value: voice.name }]
+    }]
+  })
+}
 
 export async function voiceJoin(
   member: Eris.Member,
