@@ -19,7 +19,7 @@ export async function VoiceStatusUpdate(
     embeds: [{
       title: `Voice channel status updated`,
       description: `From \`${
-        status === null ? "UNKNOWN" : status.status
+        status === null ? "UNKNOWN" : status.status === "" ? status.status : "nothing"
       }\` to \`${voice.status}\``,
       color: 0x5FCDD9,
       fields: [{ name: "Channel", value: voice.name },
