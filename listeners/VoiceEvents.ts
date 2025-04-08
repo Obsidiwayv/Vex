@@ -1,20 +1,31 @@
 import Eris from "eris";
-import {DefaultModlogEmbedColor, ReadKey} from "../config/config.reader.ts";
-import {client} from "../index.ts";
+import { ReadKey } from "../config/config.reader.ts";
+import { client } from "../index.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
-export async function VoiceStatusUpdate(voice: Eris.AnyVoiceChannel, status: Eris.VoiceStatus | null) {
+export async function VoiceStatusUpdate(
+  voice: Eris.AnyVoiceChannel,
+  status: Eris.VoiceStatus | null,
+) {
+  const audit = await voice.guild.getAuditLog({
+    actionType: Eris.Constants.AuditLogActions.VOICE_CHANNEL_STATUS_UPDATE,
+    limit: 1
+  });
+  const user = client.users.get(audit.entries[0].member!.id);
   await client.createMessage(log_channel.Str(), {
     embeds: [{
       title: `Voice channel status updated`,
-      description: `From \`${status === null ? "UNKNOWN" : status.status}\` to \`${voice.status}\``,
-      color: DefaultModlogEmbedColor(),
-      fields: [{ name: "Channel", value: voice.name }]
-    }]
-  })
+      description: `From \`${
+        status === null ? "UNKNOWN" : status.status
+      }\` to \`${voice.status}\``,
+      color: 0x5FCDD9,
+      fields: [{ name: "Channel", value: voice.name },
+        { name: "User", value: user ? user.username! : "UNKNOWN" }],
+    }],
+  });
 }
 
 export async function voiceJoin(

@@ -56,8 +56,3 @@ export function ReadKey(key: string) {
     return new Key(value);
   }
 }
-
-
-export function DefaultModlogEmbedColor() {
-  return parseInt(`0x${ReadKey("LOG_EMBED_COLOR").Str()}`);
-}
