@@ -1,4 +1,4 @@
 {
-  "production": false,
-  "debug": true
+  "production": true,
+  "debug": false
 }
