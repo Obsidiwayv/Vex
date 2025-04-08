@@ -14,7 +14,6 @@ export async function VoiceStatusUpdate(
     actionType: Constants.AuditLogActions.VOICE_CHANNEL_STATUS_UPDATE,
     limit: 1
   });
-  console.log(audit);
   const user = client.users.get(audit.users[0].id!);
   await client.createMessage(log_channel.Str(), {
     embeds: [{
