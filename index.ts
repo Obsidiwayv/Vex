@@ -22,6 +22,7 @@ import {PlasmaEmojis} from "./config/Emoji.ts";
 import MessageBulkDeleteListener from "./listeners/MessageBulkDeleteListener.ts";
 import Mods from "./commands/Mods.ts";
 import RobloxSearch from "./commands/RobloxSearch.ts";
+import WordBlacklist from "./commands/blacklist/WordBlacklist.ts";
 
 
 const token = ReadKey("TKN");
@@ -46,6 +47,7 @@ export const client = new Client(token.Str(), {
 export const rest = new SnowTransfer(token.Str());
 
 export const database = createPool(ReadKey("DB_STRING").Str());
+export const contentFilterDB = createPool(ReadKey("DB_WORDS_BLACKLIST").Str());
 
 async function OnReady() {
   await PlasmaEmojis.GetAllFromRest();
@@ -65,6 +67,7 @@ async function start() {
     //RegisterCommand("wl", new WLCommand());
     RegisterCommand("mods", new Mods());
     RegisterCommand("rsearch", new RobloxSearch());
+    RegisterCommand("blacklist", new WordBlacklist());
   }
 }
 

@@ -10,7 +10,7 @@ export async function VoiceStatusUpdate(
   voice: Eris.AnyVoiceChannel,
   status: Eris.VoiceStatus | null,
 ) {
-  if (!voice.status && !status) return;
+  if (!voice.status && !status && status === "") return;
   const audit = await voice.guild.getAuditLog({
     actionType: Constants.AuditLogActions.VOICE_CHANNEL_STATUS_UPDATE,
     limit: 1

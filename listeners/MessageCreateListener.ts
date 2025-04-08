@@ -5,6 +5,7 @@ import { ccmap } from "../CommandRegistry.ts";
 //import { WLChannelObject } from "../database/DB.ts";
 import { GetEmoji } from "../config/Emoji.ts";
 import Resolver from "../util/Resolver.ts";
+import {contentFilterDB} from "../index.ts";
 //import { isEnabled } from "../check.ts";
 
 const WIN_OR_LOSE = [
@@ -13,8 +14,25 @@ const WIN_OR_LOSE = [
     "win/lose"
 ]
 
-export default function(message: Eris.Message) {
+export default async function(message: Eris.Message) {
     if (message.author.bot) return;
+
+    if (message.content) {
+        const wordBlacklist = await contentFilterDB.query<{
+            word: string;
+            lett: string;
+        }[]>("SELECT * FROM `word_list`");
+        const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
+        for (const word of words) {
+            for (const content of message.content.toLowerCase().split(" ")) {
+                if (word === content) {
+                    message.delete();
+                    return;
+                }
+            }
+        }
+    }
+
 
     if (ReadKey("WL_CHANNELS").Array<string>().includes(message.channel.id)
         && WIN_OR_LOSE.includes(message.content.toLowerCase())) {
