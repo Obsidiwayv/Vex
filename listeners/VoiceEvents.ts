@@ -1,4 +1,4 @@
-import Eris from "eris";
+import Eris, { Constants } from "eris";
 import { ReadKey } from "../config/config.reader.ts";
 import { client } from "../index.ts";
 
@@ -11,7 +11,7 @@ export async function VoiceStatusUpdate(
   status: Eris.VoiceStatus | null,
 ) {
   const audit = await voice.guild.getAuditLog({
-    actionType: Eris.Constants.AuditLogActions.VOICE_CHANNEL_STATUS_UPDATE,
+    actionType: Constants.AuditLogActions.VOICE_CHANNEL_STATUS_UPDATE,
     limit: 1
   });
   const user = client.users.get(audit.entries[0].member!.id);
