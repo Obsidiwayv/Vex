@@ -15,6 +15,7 @@ export default class extends BaseCommand {
             );
             await message.channel.createMessage("Word has been blacklisted");
         } catch (e) {
+            console.log(e);
             await message.channel.createMessage("Could not blacklist that word");
         }
     }
