@@ -26,6 +26,7 @@ export default async function(message: Eris.Message) {
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
                 const reg = word.match(content);
+                console.log(reg, word, content)
                 if (reg != null) message.delete();
             }
         }
