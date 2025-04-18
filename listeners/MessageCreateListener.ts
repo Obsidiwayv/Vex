@@ -25,7 +25,7 @@ export default async function(message: Eris.Message) {
         const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
-                const reg = word.match(content);
+                const reg = new RegExp(content).exec(word);
                 console.log(reg, word, content)
                 if (reg != null) message.delete();
             }
