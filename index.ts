@@ -24,6 +24,7 @@ import Mods from "./commands/Mods.ts";
 import RobloxSearch from "./commands/RobloxSearch.ts";
 import WordBlacklist from "./commands/blacklist/WordBlacklist.ts";
 import Embed from "./commands/Embed.ts";
+import ReactionCreate from "./commands/reaction/Reaction.Create.ts";
 
 
 const token = ReadKey("TKN");
@@ -70,6 +71,7 @@ async function start() {
     RegisterCommand("rsearch", new RobloxSearch());
     RegisterCommand("blacklist", new WordBlacklist());
     RegisterCommand("embed", new Embed(), checkAliases(["e"]));
+    RegisterCommand("reaction.add", new ReactionCreate());
   }
 }
 
