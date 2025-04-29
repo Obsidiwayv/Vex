@@ -23,6 +23,7 @@ import MessageBulkDeleteListener from "./listeners/MessageBulkDeleteListener.ts"
 import Mods from "./commands/Mods.ts";
 import RobloxSearch from "./commands/RobloxSearch.ts";
 import WordBlacklist from "./commands/blacklist/WordBlacklist.ts";
+import Embed from "./commands/Embed.ts";
 
 
 const token = ReadKey("TKN");
@@ -68,6 +69,7 @@ async function start() {
     RegisterCommand("mods", new Mods());
     RegisterCommand("rsearch", new RobloxSearch());
     RegisterCommand("blacklist", new WordBlacklist());
+    RegisterCommand("embed", new Embed(), checkAliases(["e"]));
   }
 }
 
