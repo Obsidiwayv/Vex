@@ -23,25 +23,23 @@ export default class {
     private static FilterCache(data: ReactionOptions) {
         return this.cache.filter(
             (obj) => {
-                console.log(obj, this.cache)
                 return obj.message_id === data.message.id && data.emoji.name === obj.emoji;
             });
     }
 
-    private static HandleAdd(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
+    private static async HandleAdd(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
         const reactionRole = this.FilterCache({ message, emoji });
-        console.log(reactionRole);
         if (reactionRole.length) {
-            (<Eris.GuildChannel>message.channel)
+            await (<Eris.GuildChannel>message.channel)
                 .guild.addMemberRole(emoji.user!.id, reactionRole[0].role_id);
         }
     }
 
     
-    private static HandleRemove(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
+    private static async HandleRemove(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
         const reactionRole = this.FilterCache({ message, emoji });
         if (reactionRole.length) {
-            (<Eris.GuildChannel>message.channel)
+            await (<Eris.GuildChannel>message.channel)
                 .guild.removeMemberRole(emoji.user!.id, reactionRole[0].role_id);
         }
     }
