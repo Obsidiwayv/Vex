@@ -25,6 +25,7 @@ import RobloxSearch from "./commands/RobloxSearch.ts";
 import WordBlacklist from "./commands/blacklist/WordBlacklist.ts";
 import Embed from "./commands/Embed.ts";
 import ReactionCreate from "./commands/reaction/Reaction.Create.ts";
+import ReactionListeners from "./listeners/ReactionListeners.ts";
 
 
 const token = ReadKey("TKN");
@@ -89,6 +90,7 @@ function listenToEvents(client: Eris.Client) {
   client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
+  ReactionListeners.Create();
 }
 
 start();

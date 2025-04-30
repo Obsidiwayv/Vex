@@ -8,3 +8,9 @@ export interface ReminderDatabaseObj {
     channel: string;
     time: string;
 }
+
+export interface ReactionRolesObj {
+    message_id: string;
+    emoji: string;
+    role_id: string;
+}
