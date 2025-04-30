@@ -27,21 +27,20 @@ export default class {
             });
     }
 
-    private static async HandleAdd(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
+    private static async HandleAdd(message: Eris.Message, emoji: Eris.Emoji, reactor: Eris.Member) {
         const reactionRole = this.FilterCache({ message, emoji });
         if (reactionRole.length) {
-            console.log(emoji);
             await (<Eris.GuildChannel>message.channel)
-                .guild.addMemberRole(emoji.user!.id, reactionRole[0].role_id);
+                .guild.addMemberRole(reactor.id, reactionRole[0].role_id);
         }
     }
 
     
-    private static async HandleRemove(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
+    private static async HandleRemove(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji, userID: string) {
         const reactionRole = this.FilterCache({ message, emoji });
         if (reactionRole.length) {
             await (<Eris.GuildChannel>message.channel)
-                .guild.removeMemberRole(emoji.user!.id, reactionRole[0].role_id);
+                .guild.removeMemberRole(userID, reactionRole[0].role_id);
         }
     }
 }
