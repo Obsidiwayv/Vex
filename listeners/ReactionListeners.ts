@@ -21,13 +21,16 @@ export default class {
     }
 
     private static FilterCache(data: ReactionOptions) {
-        console.log(this.cache)
         return this.cache.filter(
-            (obj) => obj.message_id === data.message.id && data.emoji.name === obj.emoji);
+            (obj) => {
+                console.log(obj, this.cache)
+                return obj.message_id === data.message.id && data.emoji.name === obj.emoji;
+            });
     }
 
     private static HandleAdd(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
         const reactionRole = this.FilterCache({ message, emoji });
+        console.log(reactionRole);
         if (reactionRole.length) {
             (<Eris.GuildChannel>message.channel)
                 .guild.addMemberRole(emoji.user!.id, reactionRole[0].role_id);
