@@ -30,7 +30,7 @@ export default class {
     private static async HandleAdd(message: Eris.PossiblyUncachedMessage, emoji: Eris.Emoji) {
         const reactionRole = this.FilterCache({ message, emoji });
         if (reactionRole.length) {
-            console.log(message, emoji);
+            console.log(emoji);
             await (<Eris.GuildChannel>message.channel)
                 .guild.addMemberRole(emoji.user!.id, reactionRole[0].role_id);
         }
