@@ -12,7 +12,6 @@ export default class {
 
     public static Create() {
         this.SetCache();
-        Deno.cron("Update Reaction Cache", { minute: { every: 10 } }, {}, () => this.SetCache());
         client.on("messageReactionAdd", this.HandleAdd.bind(this));
         client.on("messageReactionRemove", this.HandleRemove.bind(this));
     }
