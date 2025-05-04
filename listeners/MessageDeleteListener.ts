@@ -14,7 +14,7 @@ export default async function (m: Eris.Message) {
       context.content = m.content;
     }
     const webhook = await client.createChannelWebhook(log_channel.Str(), { 
-      avatar: m.author.avatar,
+      avatar: m.author.avatarURL,
       name: m.author.username
     });
     await client.executeWebhook(webhook.id, webhook.token!, context);
