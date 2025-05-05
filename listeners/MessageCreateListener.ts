@@ -5,7 +5,7 @@ import { ccmap } from "../CommandRegistry.ts";
 //import { WLChannelObject } from "../database/DB.ts";
 import { GetEmoji } from "../config/Emoji.ts";
 import Resolver from "../util/Resolver.ts";
-import {contentFilterDB} from "../index.ts";
+import {client, contentFilterDB} from "../index.ts";
 //import { isEnabled } from "../check.ts";
 
 const WIN_OR_LOSE = [
@@ -23,6 +23,11 @@ export default async function(message: Eris.Message) {
             lett: string;
         }[]>("SELECT * FROM `word_list`");
         const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
+        if (words.includes(message.content)) {
+            const content = `Possibly banned word: ${message.content}`;
+            console.log(content);
+            client.createMessage(ReadKey("DEBUG_CHANNEL").Str(), content);
+        }
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
                 if (word === content) {
