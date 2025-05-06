@@ -23,11 +23,7 @@ export default async function(message: Eris.Message) {
             lett: string;
         }[]>("SELECT * FROM `word_list`");
         const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
-        if (words.includes(message.content)) {
-            const content = `Possibly banned word: ${message.content}`;
-            console.log(content);
-            client.createMessage(ReadKey("DEBUG_CHANNEL").Str(), content);
-        }
+        console.log(message.content.split(""));
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
                 if (word === content) {
