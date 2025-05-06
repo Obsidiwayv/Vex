@@ -6,6 +6,7 @@ import { Append, GetEmoji } from "../config/Emoji.ts";
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
 function VerifyMessages(newMessage: Eris.Message, oldMessage: Eris.Message) {
+    console.log(newMessage.content.split(""), oldMessage.content.split(""));
     if (!newMessage.content && !newMessage.content) {
         return false;
     } else if (newMessage.content === oldMessage.content) {
