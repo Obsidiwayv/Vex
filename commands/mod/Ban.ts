@@ -3,6 +3,7 @@ import Eris from "eris";
 
 export default class extends BaseCommand {
     public override execute(message: Eris.Message, ctx: CTX) {
+        if (!message.member?.permissions.has("banMembers")) return;
         const member = this.resolvers.GetMember(0);
 
         if (!member) return;
