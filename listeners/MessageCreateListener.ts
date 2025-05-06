@@ -5,7 +5,7 @@ import { ccmap } from "../CommandRegistry.ts";
 //import { WLChannelObject } from "../database/DB.ts";
 import { GetEmoji } from "../config/Emoji.ts";
 import Resolver from "../util/Resolver.ts";
-import {client, contentFilterDB} from "../index.ts";
+import {contentFilterDB} from "../index.ts";
 //import { isEnabled } from "../check.ts";
 
 const WIN_OR_LOSE = [
