@@ -23,7 +23,6 @@ export default async function(message: Eris.Message) {
             lett: string;
         }[]>("SELECT * FROM `word_list`");
         const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
-        console.log(message.content.split(""));
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
                 if (word === content) {
