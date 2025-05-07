@@ -1,6 +1,7 @@
 {
   "imports": {
     "@google/generative-ai": "npm:@google/generative-ai@^0.24.0",
+    "@quentinadam/base64": "jsr:@quentinadam/base64@^0.1.4",
     "axios": "npm:axios@^1.8.4",
     "discord-api-types": "npm:discord-api-types@^0.37.119",
     "eris": "npm:eris@^0.18.0",
