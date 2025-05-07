@@ -1,7 +1,7 @@
 import Eris, { EmbedOptions } from "eris";
 import { client } from "../index.ts";
 import { ReadKey } from "../config/config.reader.ts";
-import * as base from "@quentinadam/base64";
+import { encodeBase64 } from "@std/encoding";
 
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
@@ -14,8 +14,10 @@ export default async function (m: Eris.Message) {
     if (m.content) {
       context.content = m.content;
     }
+    const request = await fetch(m.author.dynamicAvatarURL("png"));
+    const avatar = `data:image/png;base64,${encodeBase64(await request.bytes())}`;
     const webhook = await client.createChannelWebhook(log_channel.Str(), { 
-      avatar: m.author.dynamicAvatarURL("png"),
+      avatar,
       name: m.author.username
     });
     await client.executeWebhook(webhook.id, webhook.token!, context);
