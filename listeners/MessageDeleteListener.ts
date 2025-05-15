@@ -6,6 +6,8 @@ import { encodeBase64 } from "@std/encoding";
 const log_channel = ReadKey("MOD_LOG_CHANNEL");
 
 export default async function (m: Eris.Message) {
+  if (!m.id) return;
+  
   if (m.author.id === client.user.id && m.channel.id === log_channel.Str()) {
     return client.createMessage(log_channel.Str(), { embeds: m.embeds });
   }
