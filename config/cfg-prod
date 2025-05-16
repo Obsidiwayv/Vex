@@ -13,7 +13,7 @@
 {HOST_URL::https://manage.proxied.host}
 {DB_STRING::mariadb://u104_J6Bs8ndfyB:hdS%3DnH9NDB%3DB6t0i71l%40UcvQ@n2.proxied.host:3306/s104_PlasmaDB}
 {DB_WORDS_BLACKLIST::mariadb://u104_CGK8ixMby6:o412OhQ9oSS%3Dn.7IZotSWeN4@n2.proxied.host:3306/s104_ContentFilter}
-{SERVER_ID::656a4c5d-bf6a-4315-aabf-0143a2c31866}
+{SERVER_ID::5250f165-3b38-419c-baf2-398c1a02cea0}
 {PANEL_KEY::ptlc_jyi3ufyEHZ1ucKrrtXfHLS7waKDm4HMe93NCEGN2o74}
 {GEMINI_API_KEY::AIzaSyB2UbBAzdIrE66FZt8Utfi4YQSeMJxpbNo}
 {GEMINI_MODEL_TYPE::gemini-2.0-flash}
