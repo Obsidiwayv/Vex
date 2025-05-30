@@ -12,8 +12,8 @@ export default class {
 
     public static Create() {
         this.SetCache();
-        client.on("messageReactionAdd", this.HandleAdd.bind(this));
-        client.on("messageReactionRemove", this.HandleRemove.bind(this));
+        //client.on("messageReactionAdd", this.HandleAdd.bind(this));
+        //client.on("messageReactionRemove", this.HandleRemove.bind(this));
     }
 
     private static async SetCache() {
