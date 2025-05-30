@@ -54,6 +54,7 @@ export const contentFilterDB = createPool(ReadKey("DB_WORDS_BLACKLIST").Str());
 
 async function OnReady() {
   await PlasmaEmojis.GetAllFromRest();
+  await client.editStatus("idle", { state: "Limited Mode", type: 3 });
 }
 
 async function start() {
@@ -68,11 +69,11 @@ async function start() {
     RegisterCommand("ban", new Ban());
     RegisterCommand("kick", new Kick());
     //RegisterCommand("wl", new WLCommand());
-    RegisterCommand("mods", new Mods());
+    //RegisterCommand("mods", new Mods());
     RegisterCommand("rsearch", new RobloxSearch());
     RegisterCommand("blacklist", new WordBlacklist());
     RegisterCommand("embed", new Embed(), checkAliases(["e"]));
-    RegisterCommand("reaction.add", new ReactionCreate());
+    //RegisterCommand("reaction.add", new ReactionCreate());
   }
 }
 
