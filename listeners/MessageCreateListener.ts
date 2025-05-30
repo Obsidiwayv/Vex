@@ -14,15 +14,17 @@ const WIN_OR_LOSE = [
     "win/lose"
 ]
 
+const words = [];
+
 export default async function(message: Eris.Message) {
     if (message.author.bot) return;
 
     if (message.content) {
-        const wordBlacklist = await contentFilterDB.query<{
-            word: string;
-            lett: string;
-        }[]>("SELECT * FROM `word_list`");
-        const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
+        //const wordBlacklist = await contentFilterDB.query<{
+        //    word: string;
+        //    lett: string;
+        //}[]>("SELECT * FROM `word_list`");
+        // const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
         for (const word of words) {
             for (const content of message.content.toLowerCase().split(" ")) {
                 if (word === content) {
