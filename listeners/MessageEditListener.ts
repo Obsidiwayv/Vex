@@ -24,11 +24,12 @@ function VerifyMessages(newMessage: Eris.Message, oldMessage: Eris.Message) {
 export default async function(m_n: Eris.Message, m_o: Eris.Message) {
     if (!VerifyMessages(m_n, m_o)) return;
     
-    const wordBlacklist = await contentFilterDB.query<{
-        word: string;
-        lett: string;
-    }[]>("SELECT * FROM `word_list`");
-    const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
+    //const wordBlacklist = await contentFilterDB.query<{
+    //    word: string;
+    //    lett: string;
+    //}[]>("SELECT * FROM `word_list`");
+    const words = [];
+    //const words = wordBlacklist.map(blacklist => blacklist.word.toLowerCase());
     for (const word of words) {
         for (const content of m_n.content.toLowerCase().split(" ")) {
             if (word === content) {
