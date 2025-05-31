@@ -54,7 +54,7 @@ export const contentFilterDB = createPool(ReadKey("DB_WORDS_BLACKLIST").Str());
 
 async function OnReady() {
   await PlasmaEmojis.GetAllFromRest();
-  await client.editStatus("idle", { state: "Limited Mode", type: 3 });
+  await client.editStatus("idle", { name: "Limited Mode", type: 3 });
 }
 
 async function start() {
@@ -91,6 +91,7 @@ function listenToEvents(client: Eris.Client) {
   client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
+  globalThis.onunhandledrejection((e) => debug(e));
   ReactionListeners.Create();
 }
 
