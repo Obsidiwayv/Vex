@@ -91,7 +91,7 @@ function listenToEvents(client: Eris.Client) {
   client.once("ready", OnReady);
   client.on("error", (e) => debug(e.message));
   client.on("warn", (msg) => debug(msg));
-  globalThis.onunhandledrejection((e) => debug(e));
+  addEventListener("unhandledrejection", (event) => debug(this))
   ReactionListeners.Create();
 }
 
