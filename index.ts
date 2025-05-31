@@ -54,7 +54,7 @@ export const contentFilterDB = createPool(ReadKey("DB_WORDS_BLACKLIST").Str());
 
 async function OnReady() {
   await PlasmaEmojis.GetAllFromRest();
-  await client.editStatus("idle", { name: "Limited Mode", type: 3 });
+  await client.editStatus("idle", { name: "Limited Mode", type: 0 });
 }
 
 async function start() {
